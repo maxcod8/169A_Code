@@ -11,4 +11,17 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+    
+}
+
+void setAngle(double angle){
+    autoDriveState = 1;
+    goalAngle = angle;
+}
+
+void setTarget(double destX, double destY){
+    autoDriveState = 0;
+    goalX = destX;
+    goalY = destY;
+}
