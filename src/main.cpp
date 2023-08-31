@@ -1,5 +1,5 @@
 #include "main.h"
-#include "tasks.h"
+#include "tasks.hpp"
 
 
 /**
@@ -13,10 +13,25 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::Task taskUpdateOdometry(updateOdometry);
-	pros::Task taskMoveTo(moveTo);
-	pros::Task taskTurnTo(turnTo);
-  	pros::Task taskLookAt(lookAt);
-	pros::Task taskStationaryCheck(stationaryCheck);
+	//pros::Task taskMoveTo(moveTo);
+	//pros::Task taskTurnTo(turnTo);
+  	//pros::Task taskLookAt(lookAt);
+	//pros::Task taskStationaryCheck(stationaryCheck);
+}
+
+void opcontrol(){
+
+    while(true){
+        double left = -controller.get_analog(ANALOG_LEFT_Y);
+		double right = controller.get_analog(ANALOG_RIGHT_Y);
+
+        leftWheelsOne.move(left);
+        leftWheelsTwo.move(-left);
+        rightWheelsOne.move(-right);
+        rightWheelsTwo.move(right);
+        
+        pros::delay(TASK_DELAY);
+    }
 }
 
 /**

@@ -1,4 +1,4 @@
-#include "globals.h"
+#include "globals.hpp"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -17,7 +17,7 @@ void autonomous() {
 
 void setAngle(double angle){
     autoDriveState = 1;
-    goalAngle = angle;
+    goalAngle = angle * RAD_TO_DEG;
 }
 
 void setTarget(double destX, double destY){
