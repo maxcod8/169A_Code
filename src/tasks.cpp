@@ -17,40 +17,42 @@ void trackPosition(){
     lastRightRot = rightRot;
     lastSideRot = sideRot;
 
-    // Absolute oreintation and change in orientation
-    double newRot = (deltaL - deltaR) / (DST_SIDE * 2.0);
+    // Relative orientation
+    double deltaTheta = (deltaL - deltaR) / (DST_SIDE * 2.0);
 
     // Relative position since last movement
     double h, h2;
-    if (newRot == 0) {
+    double c;
+    if (deltaTheta == 0) {
         h = deltaS;
         h2 = deltaR;
+        c = 0;
     }
     else {
-        double i = 2 * sin(newRot / 2);
-        h = ((deltaS / newRot) + DST_BACK) * i;
-        h2 = ((deltaR / newRot) + DST_SIDE) * i;
+        c = deltaTheta / 2.0;
+        h = ((deltaR / deltaTheta) + DST_SIDE) * sin(c) * 2.0;
+        h2 = ((deltaS / deltaTheta) + DST_BACK) * sin(c) * 2.0;
     }
 
-    // Calculate average rotation
-    double avgRot = (newRot / 2.0) - orientation;
-    orientation += newRot;
+    // Average rotation
+    double thetaM = c - theta;
+    double cosThetaM = cos(thetaM);
+    double sinThetaM = sin(thetaM);
 
-    double newX = x + (h * sin(avgRot));
-    double newY = y + (h * cos(avgRot));
+    // Relative position
+    double deltaX = (h * cosThetaM) - (h2 * sinThetaM);
+    double deltaY = (h * sinThetaM) + (h2 * cosThetaM);
 
-	newX += h2 * cos(avgRot);
-	newY += h2 * -sin(avgRot);
+    // Update global position/orientation
+	x += deltaX;
+	y += deltaY;
+    theta += deltaTheta;
+    odomHeading = theta * RAD_TO_DEG;
 
-	x = newY;
-	y = newX;
-
-    lcd::print(2, "x: %f\n", x);
-    lcd::print(3, "y: %f\n", y);
-    lcd::print(4, "thetaRAD: %f\n", orientation);
-    lcd::print(5, "thetaDEG: %f\n", orientation * RAD_TO_DEG);
-    lcd::print(6, "rightD: %f, leftd: %f", deltaR, deltaL);
-    lcd::print(7, "sideD: %f", deltaS);
+    lcd::print(2, "h: %f, h2: %f\n", h, h2);
+    lcd::print(3, "x: %f, y: %f\n", x, y);
+    lcd::print(5, "theta: %f\n", theta);
+    lcd::print(6, "heading: %f\n", odomHeading);
 }
 
 void updateOdometry(void* args){
@@ -60,16 +62,6 @@ void updateOdometry(void* args){
 
     while (true){
         trackPosition();
-        delay(TASK_DELAY);
-    }
-}
-
-void cataControl(void* args){
-    cataRotationSensor.reset_position();
-
-    while (true){
-        double turnDegrees = cataRotationSensor.get_position()/100.0;
-
         delay(TASK_DELAY);
     }
 }
@@ -89,3 +81,4 @@ void lookAt(void* args){
 void stationaryCheck(void* args){
     delay(TASK_DELAY);
 }
+
