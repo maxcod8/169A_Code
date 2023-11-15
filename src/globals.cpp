@@ -9,10 +9,10 @@ pros::Motor cataMotor(CATA_MOTOR_PORT);
 pros::Motor intakeMotor(INTAKE_MOTOR_PORT);
 pros::Motor fourBarMotor(FOUR_BAR_MOTOR_PORT);
 
-pros::Rotation leftRotationSensor(LEFT_ROTATION_PORT);
-pros::Rotation rightRotationSensor(RIGHT_ROTATION_PORT);
-pros::Rotation sideRotationSensor(SIDE_ROTATION_PORT);
-pros::Rotation cataRotationSensor(CATA_ROTATION_PORT);
+//pros::Rotation leftRotationSensor(LEFT_ROTATION_PORT);
+//pros::Rotation rightRotationSensor(RIGHT_ROTATION_PORT);
+//pros::Rotation sideRotationSensor(SIDE_ROTATION_PORT);
+//pros::Rotation cataRotationSensor(CATA_ROTATION_PORT);
 
 pros::ADIDigitalOut piston(PISTON_PORT, true);
 

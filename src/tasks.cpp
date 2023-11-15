@@ -1,7 +1,7 @@
 #include "tasks.hpp"
 
 using namespace pros;
-
+/*
 void trackPosition(){
     // Read rotation sensor values
     double leftRot = leftRotationSensor.get_position() / 100;
@@ -54,14 +54,15 @@ void trackPosition(){
     lcd::print(5, "theta: %f\n", theta);
     lcd::print(6, "heading: %f\n", odomHeading);
 }
+*/
 
 void updateOdometry(void* args){
-    leftRotationSensor.reset_position();
-    rightRotationSensor.reset_position();
-    sideRotationSensor.reset_position();
+    //leftRotationSensor.reset_position();
+    //rightRotationSensor.reset_position();
+    //sideRotationSensor.reset_position();
 
     while (true){
-        trackPosition();
+        //trackPosition();
         delay(TASK_DELAY);
     }
 }

@@ -22,18 +22,23 @@ void initialize() {
 void opcontrol(){
 
     bool flapState = true;
-    bool fourBarState = false;
+    bool fourBarState = true;
     bool cataState = false;
     int intakeState = 0;
 
     while(true){
-        double left = controller.get_analog(ANALOG_LEFT_Y);
-		double right = -controller.get_analog(ANALOG_RIGHT_Y);
+        double left = -controller.get_analog(ANALOG_LEFT_Y);
+		double right = controller.get_analog(ANALOG_RIGHT_Y);
 
         leftWheelsFront.move(left);
         leftWheelsBack.move(left);  
         rightWheelsFront.move(right);  
         rightWheelsBack.move(right);
+
+        pros::lcd::print(2, "intake: %d", intakeState);
+        pros::lcd::print(3, "flaps: %s", flapState ? "true" : "false");
+        pros::lcd::print(4, "fourbar: %s", fourBarState ? "true" : "false");
+        pros::lcd::print(5, "catapult: %s", cataState ? "true" : "false");
 
         handle_flaps(flapState);
         handle_intake(intakeState);
@@ -51,22 +56,25 @@ void handle_flaps(bool &flapState){
 }
 
 void handle_intake(int &intakeState){
-    if (controller.get_digital_new_press(INTAKE_FOWARD_TOGGLE_BUTTON))
+    if (controller.get_digital_new_press(INTAKE_FOWARD_TOGGLE_BUTTON)){
         intakeState += 1;
+    }
     if (controller.get_digital_new_press(INTAKE_BACKWARD_TOGGLE_BUTTON))
         intakeState -= 1;
 
-    if (intakeState > 1 || intakeState < 1)
+    if (intakeState > 1 || intakeState < -1)
         intakeState = 0;
 
-    double rotationValue = intakeState * degrees_to_position(360);
-    intakeMotor.move_relative(rotationValue, 600);
+    double rotationValue = -intakeState * 127;
+    intakeMotor.move(rotationValue);
 }
-
+ 
 void handle_four_bar(bool &fourBarState){
-    double rotationAmount = degrees_to_position(450);
-    if (controller.get_digital_new_press(FOUR_BAR_TOGGLE_BUTTON))
-        fourBarMotor.move_relative(fourBarState ? -rotationAmount : rotationAmount, 100);
+    double rotationAmount = 2225;
+    if (controller.get_digital_new_press(FOUR_BAR_TOGGLE_BUTTON)){
+        fourBarMotor.move_relative(fourBarState ? -rotationAmount : rotationAmount, 1000);
+        fourBarState = !fourBarState;
+    }
 }
 
 void handle_catapult(bool &cataState){
@@ -74,7 +82,7 @@ void handle_catapult(bool &cataState){
         cataState = !cataState;
     
     if (cataState)
-        cataMotor.move_relative(degrees_to_position(360), 100);
+        cataMotor.move(127);
 }
 
 /**
