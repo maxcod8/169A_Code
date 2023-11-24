@@ -1,9 +1,8 @@
 #pragma once
 #include "globals.hpp"
+#include "autonomous.hpp"
+#include "PID.hpp"
 
-void trackPosition();
-void updateOdometry(void* args);
-void moveTo(void* args);
-void turnTo(void* args);
-void lookAt(void* args);
-void stationaryCheck(void* args);
+void updateOrientation(void* args);
+void move(void* args);
+void turn(void* args);

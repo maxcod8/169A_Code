@@ -67,10 +67,6 @@ void initialize(void);
 void disabled(void);
 void competition_initialize(void);
 void opcontrol(void);
-void handle_flaps(bool &flapState);
-void handle_intake(int &intakeState);
-void handle_four_bar(bool &fourBarState);
-void handle_catapult(bool &cataState);
 #ifdef __cplusplus
 }
 #endif
