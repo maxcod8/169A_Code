@@ -7,20 +7,19 @@ constexpr auto INTAKE_FOWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R1;
 constexpr auto INTAKE_BACKWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R2;
 constexpr auto FOUR_BAR_MANUAL_UP = pros::E_CONTROLLER_DIGITAL_L1;
 constexpr auto FOUR_BAR_MANUAL_DOWN = pros::E_CONTROLLER_DIGITAL_L2;
-constexpr auto CATAPULT_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_A;
+constexpr auto CATAPULT_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
 
 // VEX Ports
 constexpr int LEFT_WHEELS_PORT = 14;
-constexpr int LEFT_WHEELS_PORT2 = 19;
-constexpr int RIGHT_WHEELS_PORT = 16;
-constexpr int RIGHT_WHEELS_PORT2 = 20;
-constexpr int CATA_MOTOR_PORT = 2;
-constexpr int INTAKE_MOTOR_PORT = 1;
+constexpr int LEFT_WHEELS_PORT2 = 16;
+constexpr int RIGHT_WHEELS_PORT = 15;
+constexpr int RIGHT_WHEELS_PORT2 = 19;
+constexpr int CATA_MOTOR_PORT = 6;
+constexpr int INTAKE_MOTOR_PORT = 2;
 constexpr int FOUR_BAR_MOTOR_PORT = 8;
 constexpr int FOUR_BAR_MOTOR_PORT2 = 13;
 constexpr char PISTON_PORT = 'H';
-constexpr int IMU_PORT_ONE = 0;
-constexpr int IMU_PORT_TWO = 0;
+constexpr int IMU_PORT = 17;
 
 // Utility variables
 constexpr int TASK_DELAY = 20;
@@ -39,11 +38,12 @@ extern pros::Motor cataMotor;
 extern pros::Motor intakeMotor;
 extern pros::Motor fourBarMotorRight;
 extern pros::Motor fourBarMotorLeft;
-extern pros::IMU imuOne;
-extern pros::IMU imuTwo;
+extern pros::IMU imu;
 
 extern pros::ADIDigitalOut piston;
 
 // Robot variable declarations
-extern double orientation, previousOrientation, targetMove, targetAngle;
+extern double orientation, previousOrientation, position, previousPosition; 
+extern double targetMove, targetAngle;
 extern int autoDriveState;
+extern bool opControl;

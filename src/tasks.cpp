@@ -1,9 +1,38 @@
 #include "tasks.hpp"
-
-
 using namespace pros;
 
-void updateOrientation(void* args) {
+void move(void* args){
+    PID pid = PID(1, 0, 3, 0);
+
+    while (true) {
+        // Get average position for all drive-train wheels
+        double motorRightPos = (rightWheelsFront.get_position() + rightWheelsBack.get_position()) / 2.0;
+        double motorLeftPos = (leftWheelsFront.get_position() + leftWheelsBack.get_position()) / 2.0;
+        position = (motorRightPos - motorLeftPos) / 2.0;
+
+        pros::lcd::print(1, "Pos: %f", position);
+        
+        // Calculate motor output with PID
+        double output = pid.calculate(targetMove, position);
+
+        pros::lcd::print(2, "Move output: %f", output);
+        pros::lcd::print(5, "Move target: %f", targetMove);
+
+        if (!opControl && autoDriveState == 0) {
+            leftWheelsFront.move(-output);
+            leftWheelsBack.move(-output);
+            rightWheelsFront.move(output);
+            rightWheelsBack.move(output);
+        }
+
+        previousPosition = position;
+    
+        delay(TASK_DELAY);
+    }
+}
+
+void turn(void* args){
+    PID pid = PID(2, 0.0, 1.5, 0.0);
     int imuCalibrationThreshold = 100;
     int timerTime = 0;
 
@@ -14,44 +43,25 @@ void updateOrientation(void* args) {
             continue; 
         }
 
-        // Update robot orientation with average of IMU values
-        previousOrientation = orientation;
-        orientation = (imuOne.get_rotation() + imuTwo.get_rotation()) / 2.0;
-    }
-}
-
-void move(void* args){
-    PID pid = PID(0, 0, 0, 40);
-
-    while (true) {
-        // Get average position for all drive-train wheels
-        double motorRightPos = (rightWheelsFront.get_position() + rightWheelsBack.get_position()) / 2.0;
-        double motorLeftPos = (leftWheelsFront.get_position() + leftWheelsBack.get_position()) / 2.0;
-        double averagePosition = (motorRightPos + motorLeftPos) / 2.0;
+        // Update robot orientation
+        orientation = imu.get_rotation();
         
-        // Calculate motor output with PID
-        double output = pid.calculate(targetMove, averagePosition);
+        pros::lcd::print(3, "Orientation: %f", orientation);
 
-        leftWheelsFront.move(output);
-        leftWheelsBack.move(output);
-        rightWheelsFront.move(output);
-        rightWheelsBack.move(output);
+        // Calcuate turn PID
+        double output = -pid.calculate(targetAngle, orientation);
 
-        delay(TASK_DELAY);
-    }
-}
+        pros::lcd::print(4, "Turn output: %f", output);
+        pros::lcd::print(6, "Turn target: %f", targetAngle);
 
-void turn(void* args){
-    PID pid = PID(0, 0, 0, 0);
-
-    while (true) {
-        double output = pid.calculate(targetAngle, orientation);
-
-        leftWheelsFront.move(output);
-        leftWheelsBack.move(output);
-        rightWheelsFront.move(-output);
-        rightWheelsBack.move(-output);
-
+        if (!opControl && autoDriveState == 1) {
+            leftWheelsFront.move(output);
+            leftWheelsBack.move(output);
+            rightWheelsFront.move(output);
+            rightWheelsBack.move(output);
+        }
+        
+        previousOrientation = orientation;
         delay(TASK_DELAY);
     }
 }

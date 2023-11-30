@@ -11,9 +11,11 @@ pros::Motor intakeMotor(INTAKE_MOTOR_PORT);
 pros::Motor fourBarMotorRight(FOUR_BAR_MOTOR_PORT);
 pros::Motor fourBarMotorLeft(FOUR_BAR_MOTOR_PORT2);
 pros::ADIDigitalOut piston(PISTON_PORT, false);
-pros::IMU imuOne(IMU_PORT_ONE);
-pros::IMU imuTwo(IMU_PORT_TWO);
+pros::IMU imu(IMU_PORT);
 
 // Robot variable definitions
-double orientation, previousOrientation, targetMove, targetAngle = 0.0;
+double orientation, previousOrientation, position, previousPosition = 0.0;
+double targetMove = 0.0;
+double targetAngle = 0.0;
 int autoDriveState = 0;
+bool opControl = true;

@@ -9,12 +9,10 @@
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
 
 	fourBarMotorLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	fourBarMotorRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	
-	pros::Task updateOrientation(updateOrientation);
 	pros::Task taskMove(move);
 	pros::Task taskTurn(turn);
 }

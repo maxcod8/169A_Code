@@ -1,4 +1,5 @@
 #include "opcontrol.hpp"
+#include "autonomous.hpp"
 
 void opcontrol(){
 
@@ -6,25 +7,24 @@ void opcontrol(){
     bool fourBarState = false;
     bool cataState = false;
     int intakeState = 0;
+    bool forward = true;
 
     while(true){
+        opControl = true;
         double left = -controller.get_analog(ANALOG_LEFT_Y);
 		double right = controller.get_analog(ANALOG_RIGHT_Y);
 
-        leftWheelsFront.move(left);
-        leftWheelsBack.move(left);  
-        rightWheelsFront.move(right);  
-        rightWheelsBack.move(right);
+        if (opControl){
+            leftWheelsFront.move(left);
+            leftWheelsBack.move(left);  
+            rightWheelsFront.move(right);  
+            rightWheelsBack.move(right);
 
-        pros::lcd::print(2, "intake: %d", intakeState);
-        pros::lcd::print(3, "flaps: %s", flapState ? "true" : "false");
-        pros::lcd::print(4, "fourbar: %s", fourBarState ? "true" : "false");
-        pros::lcd::print(5, "catapult: %s", cataState ? "true" : "false");
-
-        handle_flaps(flapState);
-        handle_intake(intakeState);
-        handle_four_bar(fourBarState);
-        handle_catapult(cataState);
+            handle_flaps(flapState);
+            handle_intake(intakeState);
+            handle_four_bar(fourBarState);
+            handle_catapult(cataState);
+        }
         pros::delay(TASK_DELAY);
     }
 }
@@ -73,4 +73,6 @@ void handle_catapult(bool &cataState){
     
     if (cataState)
         cataMotor.move(-102);
+    else 
+        cataMotor.brake();
 }
