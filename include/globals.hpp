@@ -2,12 +2,12 @@
 #include "main.h"
 
 // Controller Bindings
-constexpr auto FLAP_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_RIGHT;
+constexpr auto FLAP_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
 constexpr auto INTAKE_FOWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R1;
 constexpr auto INTAKE_BACKWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R2;
 constexpr auto FOUR_BAR_MANUAL_UP = pros::E_CONTROLLER_DIGITAL_L1;
 constexpr auto FOUR_BAR_MANUAL_DOWN = pros::E_CONTROLLER_DIGITAL_L2;
-constexpr auto CATAPULT_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
+constexpr auto CATAPULT_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_RIGHT;
 
 // VEX Ports
 constexpr int LEFT_WHEELS_PORT = 14;

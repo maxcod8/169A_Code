@@ -15,3 +15,4 @@ void setAngleTargetAbsolute(double degrees);
 void wait(int percentComplete);
 void ball_awp();
 void match_awp();
+void ball1turn_awp();
