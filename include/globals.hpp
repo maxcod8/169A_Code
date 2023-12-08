@@ -18,7 +18,7 @@ constexpr int CATA_MOTOR_PORT = 6;
 constexpr int INTAKE_MOTOR_PORT = 2;
 constexpr int FOUR_BAR_MOTOR_PORT = 8;
 constexpr int FOUR_BAR_MOTOR_PORT2 = 13;
-constexpr char PISTON_PORT = 'H';
+constexpr char PISTON_PORT = 'G';
 constexpr int IMU_PORT = 17;
 
 // Utility variables
@@ -43,7 +43,7 @@ extern pros::IMU imu;
 extern pros::ADIDigitalOut piston;
 
 // Robot variable declarations
-extern double orientation, previousOrientation, position, previousPosition; 
-extern double targetMove, targetAngle;
+extern double orientation, previousOrientation, position, previousPosition, fourBar, previousFourBar; 
+extern double targetMove, targetAngle, targetFourBar;
 extern int autoDriveState;
 extern bool opControl;

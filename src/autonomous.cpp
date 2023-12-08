@@ -16,8 +16,59 @@ void autonomous() {
     leftWheelsFront.tare_position();
     rightWheelsBack.tare_position();
     rightWheelsFront.tare_position();
-    match_awp();
-    ;
+    fourBarMotorLeft.tare_position();
+    fourBarMotorRight.tare_position();
+    far_awp();
+}
+
+
+void close_elim() {
+    opControl = false;
+    setMoveTargetDistance(-65);
+    pros::delay(1500);
+    setAngleTargetAbsolute(85);
+    pros::delay(800);
+    intakeMotor.move(127);
+    piston.set_value(true);
+    pros::delay(200);
+    intakeMotor.move(0);
+    setMoveTargetDistance(-60);
+    pros::delay(1800);  
+    piston.set_value(false);
+    setMoveTargetDistance(15);
+    pros::delay(700);
+    setAngleTargetRelative(-170);
+    pros::delay(900);
+    fourBarMotorLeft.move(127);
+    fourBarMotorRight.move(-127);
+    setMoveTargetDistance(-60);
+    pros::delay(500);
+    fourBarMotorLeft.brake();
+    fourBarMotorRight.brake();
+    pros::delay(1100);
+    setMoveTargetDistance(45);
+    fourBarMotorLeft.move(-127);
+    fourBarMotorRight.move(127);
+    pros::delay(500);
+    fourBarMotorLeft.brake();
+    fourBarMotorRight.brake();
+    pros::delay(900);
+    setAngleTargetAbsolute(-140);
+    pros::delay(1250);
+    setMoveTargetDistance(-85);
+    pros::delay(1600);
+    setAngleTargetRelative(-45);
+    pros::delay(700);
+    piston.set_value(true);
+    pros::delay(100);
+    setAngleTargetRelative(-75);
+    pros::delay(500);
+    piston.set_value(false);
+    pros::delay(100);
+    setMoveTargetDistance(-62);
+    pros::delay(1250);
+    piston.set_value(true);
+    setAngleTargetAbsolute(0);
 }
 
 void ball_awp(){
@@ -51,7 +102,7 @@ void ball_awp(){
     setMoveTargetDistance(20);
     pros::delay(1000);
     intakeMotor.move(0);
-    setMoveTargetDistance(-15);
+    setMoveTargetDistance(-15); 
     pros::delay(500);
     setAngleTargetAbsolute(-45);
     pros::delay(400);
@@ -68,9 +119,10 @@ void ball_awp(){
     setMoveTargetDistance(-50);
     pros::delay(2000);
     piston.set_value(true);
-    setAngleTargetAbsolute(-75);
+    setAngleTargetAbsolute(-85);
 }
-void ball1turn_awp(){
+
+void far_awp(){
     opControl = false;
     setMoveTargetDistance(39.5);
     pros::delay(750);
@@ -78,7 +130,7 @@ void ball1turn_awp(){
     pros::delay(300);
     setMoveTargetDistance(35.0);
     pros::delay(1000);
-    setMoveTargetDistance(-35);
+    setMoveTargetDistance(-34);
     pros::delay(750);
     setAngleTargetAbsolute(0);
     pros::delay(200);
@@ -116,37 +168,43 @@ void ball1turn_awp(){
     piston.set_value(true);
     setAngleTargetAbsolute(-75);
 }
-void match_awp(){
+
+void close_awp() {
     opControl = false;
-    setMoveTargetDistance(39.5);
-    pros::delay(750);
-    setAngleTargetAbsolute(38.0);
-    pros::delay(300);
-    setMoveTargetDistance(35.0);
+    setMoveTargetDistance(35);
     pros::delay(1000);
-    setMoveTargetDistance(-35);
-    pros::delay(750);
     setAngleTargetAbsolute(0);
-    pros::delay(200);
+    pros::delay(1000);
     piston.set_value(true);
-    setMoveTargetDistance(-23);
-    pros::delay(600);
+    setMoveTargetDistance(-25);
+    pros::delay(1000);
     piston.set_value(false);
-    pros::delay(120);
-    setAngleTargetAbsolute(-60);
-    pros::delay(600);
-    setMoveTargetDistance(-75);
-    pros::delay(800);
+    pros::delay(1000);
+    setAngleTargetAbsolute(-45);
+    pros::delay(1000);
+    setMoveTargetDistance(-45);
+    pros::delay(1000);
+    setAngleTargetAbsolute(-50);
+    pros::delay(250);
+    setMoveTargetDistance(-20);
+    pros::delay(1000);
     piston.set_value(true);
-    setAngleTargetAbsolute(-25);
+}
+
+void prog() {
 
 }
+
 /**
  * Returns absolute value of the difference between two angles (in degrees)
 */
 double angleDifference(double angle1, double angle2) {
     double diff =  fmod(round((angle2-angle1+180.0)),360) -180.0;
     return diff < -180.0 ? diff + 360.0 : diff;
+}
+
+void setFourBarPosition(int encoderUnits) {
+    fourBar = encoderUnits;
 }
 
 void setMoveTargetDistance(double distance){

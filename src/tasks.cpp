@@ -46,6 +46,7 @@ void turn(void* args){
         // Update robot orientation
         orientation = imu.get_rotation();
         
+        controller.print(1, 0, "IMU: %f", orientation);
         pros::lcd::print(3, "Orientation: %f", orientation);
 
         // Calcuate turn PID
@@ -62,6 +63,22 @@ void turn(void* args){
         }
         
         previousOrientation = orientation;
+        delay(TASK_DELAY);
+    }
+}
+
+void fourbar(void* args) {
+    PID pid = PID(1, 1, 1, 1000000);
+
+    while (true) {
+        fourBar = (fourBarMotorRight.get_position() - fourBarMotorRight.get_position()) / 2.0;
+
+        double output = pid.calculate(targetFourBar, fourBar);
+
+        fourBarMotorLeft.move(output);
+        fourBarMotorRight.move(-output);
+
+        previousFourBar = fourBar;
         delay(TASK_DELAY);
     }
 }

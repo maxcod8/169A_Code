@@ -72,7 +72,7 @@ void handle_catapult(bool &cataState){
         cataState = !cataState;
     
     if (cataState)
-        cataMotor.move(-102);
+        cataMotor.move(-114);
     else 
         cataMotor.brake();
 }
