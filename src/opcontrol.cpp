@@ -3,11 +3,10 @@
 
 void opcontrol(){
 
-    bool flapState = false;
-    bool fourBarState = false;
+    bool flapForwardState = false;
+    bool flapBackwardState = false;
     bool cataState = false;
     int intakeState = 0;
-    bool forward = true;
 
     while(true){
         opControl = true;
@@ -20,19 +19,24 @@ void opcontrol(){
             rightWheelsFront.move(right);  
             rightWheelsBack.move(right);
 
-            handle_flaps(flapState);
+            handle_flaps(flapForwardState, flapBackwardState);
             handle_intake(intakeState);
-            handle_four_bar(fourBarState);
+            handle_four_bar();
             handle_catapult(cataState);
         }
         pros::delay(TASK_DELAY);
     }
 }
 
-void handle_flaps(bool &flapState){
-    if (controller.get_digital_new_press(FLAP_TOGGLE_BUTTON)) 
-        flapState = !flapState;
-    piston.set_value(flapState);
+void handle_flaps(bool &flapForwardState, bool &flapBackwardState){
+    if (controller.get_digital_new_press(FLAP_FORWARD_TOGGLE_BUTTON)) 
+        flapForwardState = !flapForwardState;
+    if (controller.get_digital_new_press(FLAP_BACKWARD_TOGGLE_BUTTON)) {
+        flapBackwardState = !flapBackwardState;
+        setFourBarPosition(flapBackwardState ? 2000 : 0);
+    }
+    flap_forward.set_value(flapForwardState);
+    flap_backward.set_value(flapBackwardState);
 }
 
 void handle_intake(int &intakeState){
@@ -47,7 +51,7 @@ void handle_intake(int &intakeState){
     intakeMotor.move(rotationValue);
 }
  
-void handle_four_bar(bool &fourBarState){
+void handle_four_bar(){
  
     if (controller.get_digital(FOUR_BAR_MANUAL_UP)){
         fourBarMotorRight.move(-127);

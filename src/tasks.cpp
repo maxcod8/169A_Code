@@ -2,7 +2,7 @@
 using namespace pros;
 
 void move(void* args){
-    PID pid = PID(1, 0, 3, 0);
+    PID pid = PID(1, 0, 3);
 
     while (true) {
         // Get average position for all drive-train wheels
@@ -32,7 +32,7 @@ void move(void* args){
 }
 
 void turn(void* args){
-    PID pid = PID(2, 0.0, 1.5, 0.0);
+    PID pid = PID(2, 0.0, 1.5);
     int imuCalibrationThreshold = 100;
     int timerTime = 0;
 
@@ -68,17 +68,23 @@ void turn(void* args){
 }
 
 void fourbar(void* args) {
-    PID pid = PID(1, 1, 1, 1000000);
+    PID pid = PID(1.5, 0.0, 0.008);
 
     while (true) {
-        fourBar = (fourBarMotorRight.get_position() - fourBarMotorRight.get_position()) / 2.0;
+        fourBarPos = (fourBarMotorLeft.get_position() - fourBarMotorRight.get_position()) / 2.0;
 
-        double output = pid.calculate(targetFourBar, fourBar);
+        double output = pid.calculate(targetFourBar, fourBarPos);
 
+        pros::lcd::print(5, "fourbar curr: %f", fourBarPos);
+        pros::lcd::print(6, "fourbar target: %f", targetFourBar);
+        pros::lcd::print(7, "fourbar out: %f", output);
+
+    
         fourBarMotorLeft.move(output);
         fourBarMotorRight.move(-output);
+    
 
-        previousFourBar = fourBar;
+        previousFourBarPos = fourBarPos;
         delay(TASK_DELAY);
     }
 }

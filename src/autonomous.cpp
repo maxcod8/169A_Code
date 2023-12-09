@@ -12,6 +12,7 @@
  * from where it left off.
  */
 void autonomous() {
+    opControl = false;
     leftWheelsBack.tare_position();
     leftWheelsFront.tare_position();
     rightWheelsBack.tare_position();
@@ -23,56 +24,58 @@ void autonomous() {
 
 
 void close_elim() {
-    opControl = false;
     setMoveTargetDistance(-65);
     pros::delay(1500);
     setAngleTargetAbsolute(85);
     pros::delay(800);
     intakeMotor.move(127);
-    piston.set_value(true);
-    pros::delay(200);
+    pros::delay(500);
     intakeMotor.move(0);
-    setMoveTargetDistance(-60);
+    setAngleTargetAbsolute(-80);
+    pros::delay(1000);
+    flap_forward.set_value(true);
+    pros::delay(100);
+    setMoveTargetDistance(45);
     pros::delay(1800);  
-    piston.set_value(false);
-    setMoveTargetDistance(15);
-    pros::delay(700);
-    setAngleTargetRelative(-170);
-    pros::delay(900);
+    setAngleTargetAbsolute(-85);
+    pros::delay(500);
+    flap_forward.set_value(false);
+    setMoveTargetDistance(-50);
     fourBarMotorLeft.move(127);
     fourBarMotorRight.move(-127);
-    setMoveTargetDistance(-60);
     pros::delay(500);
     fourBarMotorLeft.brake();
     fourBarMotorRight.brake();
     pros::delay(1100);
-    setMoveTargetDistance(45);
+    setMoveTargetDistance(30);
     fourBarMotorLeft.move(-127);
     fourBarMotorRight.move(127);
-    pros::delay(500);
+    pros::delay(300);
     fourBarMotorLeft.brake();
     fourBarMotorRight.brake();
-    pros::delay(900);
-    setAngleTargetAbsolute(-140);
+    pros::delay(1100);
+    setAngleTargetAbsolute(-150);
     pros::delay(1250);
-    setMoveTargetDistance(-85);
-    pros::delay(1600);
-    setAngleTargetRelative(-45);
-    pros::delay(700);
-    piston.set_value(true);
-    pros::delay(100);
-    setAngleTargetRelative(-75);
+    setMoveTargetDistance(-81);
+    pros::delay(1550);
+    setAngleTargetRelative(-60);
     pros::delay(500);
-    piston.set_value(false);
+    flap_backward.set_value(true);
     pros::delay(100);
-    setMoveTargetDistance(-62);
-    pros::delay(1250);
-    piston.set_value(true);
-    setAngleTargetAbsolute(0);
+    setAngleTargetRelative(-35);
+    pros::delay(500);
+    flap_backward.set_value(false);
+    pros::delay(100);
+    setMoveTargetDistance(-20);
+    pros::delay(750);
+    setAngleTargetAbsolute(-280);
+    pros::delay(300);
+    setMoveTargetDistance(-60);
+    pros::delay(700);
+    flap_backward.set_value(true);
 }
 
 void ball_awp(){
-    opControl = false;
     setMoveTargetDistance(39.0);
     pros::delay(750);
     setAngleTargetAbsolute(-35.0);
@@ -87,10 +90,10 @@ void ball_awp(){
     pros::delay(1000);
     setAngleTargetAbsolute(0);
     pros::delay(200);
-    piston.set_value(true);
+    flap_backward.set_value(true);
     setMoveTargetDistance(-23);
     pros::delay(900);
-    piston.set_value(false);
+    flap_backward.set_value(false);
     pros::delay(120);
     setAngleTargetAbsolute(-75.0);
     pros::delay(1000);
@@ -118,12 +121,11 @@ void ball_awp(){
     pros::delay(500);
     setMoveTargetDistance(-50);
     pros::delay(2000);
-    piston.set_value(true);
+    flap_backward.set_value(true);
     setAngleTargetAbsolute(-85);
 }
 
 void far_awp(){
-    opControl = false;
     setMoveTargetDistance(39.5);
     pros::delay(750);
     setAngleTargetAbsolute(-38.0);
@@ -131,21 +133,21 @@ void far_awp(){
     setMoveTargetDistance(35.0);
     pros::delay(1000);
     setMoveTargetDistance(-34);
-    pros::delay(750);
+    pros::delay(1050);
     setAngleTargetAbsolute(0);
-    pros::delay(200);
-    piston.set_value(true);
-    setMoveTargetDistance(-23);
-    pros::delay(600);
-    piston.set_value(false);
-    pros::delay(120);
+    pros::delay(300);
+    flap_backward.set_value(true);
+    setMoveTargetDistance(-30);
+    pros::delay(1000);
+    flap_backward.set_value(false);
+    pros::delay(300);
     setAngleTargetAbsolute(-75.0);
     pros::delay(700);
     setMoveTargetDistance(50);
     pros::delay(1000); 
     setAngleTargetAbsolute(-110);
     intakeMotor.move(-127);
-    pros::delay(300);
+    pros::delay(400);
     setMoveTargetDistance(25);
     pros::delay(800);
     intakeMotor.move(0);
@@ -165,20 +167,19 @@ void far_awp(){
     pros::delay(500);
     setMoveTargetDistance(-60);
     pros::delay(1600);
-    piston.set_value(true);
+    flap_backward.set_value(true);
     setAngleTargetAbsolute(-75);
 }
 
 void close_awp() {
-    opControl = false;
     setMoveTargetDistance(35);
     pros::delay(1000);
     setAngleTargetAbsolute(0);
     pros::delay(1000);
-    piston.set_value(true);
+    flap_backward.set_value(true);
     setMoveTargetDistance(-25);
     pros::delay(1000);
-    piston.set_value(false);
+    flap_backward.set_value(false);
     pros::delay(1000);
     setAngleTargetAbsolute(-45);
     pros::delay(1000);
@@ -188,7 +189,7 @@ void close_awp() {
     pros::delay(250);
     setMoveTargetDistance(-20);
     pros::delay(1000);
-    piston.set_value(true);
+    flap_backward.set_value(true);
 }
 
 void prog() {
@@ -204,7 +205,7 @@ double angleDifference(double angle1, double angle2) {
 }
 
 void setFourBarPosition(int encoderUnits) {
-    fourBar = encoderUnits;
+    targetFourBar = encoderUnits;
 }
 
 void setMoveTargetDistance(double distance){

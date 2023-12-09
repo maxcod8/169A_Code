@@ -4,9 +4,9 @@
 
 class PID {
 private:
-    double kP, kI, kD, integral_bound;
+    double kP, kI, kD;
     double error, prevError, integral, derivative = 0.0;
 public:
-    PID (double kP, double kI, double kD, double integralBound);
+    PID (double kP, double kI, double kD);
     double calculate(double target, double current);
 };

@@ -2,7 +2,8 @@
 #include "main.h"
 
 // Controller Bindings
-constexpr auto FLAP_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
+constexpr auto FLAP_FORWARD_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
+constexpr auto FLAP_BACKWARD_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_X;
 constexpr auto INTAKE_FOWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R1;
 constexpr auto INTAKE_BACKWARD_MANUAL_BUTTON = pros::E_CONTROLLER_DIGITAL_R2;
 constexpr auto FOUR_BAR_MANUAL_UP = pros::E_CONTROLLER_DIGITAL_L1;
@@ -18,7 +19,8 @@ constexpr int CATA_MOTOR_PORT = 6;
 constexpr int INTAKE_MOTOR_PORT = 2;
 constexpr int FOUR_BAR_MOTOR_PORT = 8;
 constexpr int FOUR_BAR_MOTOR_PORT2 = 13;
-constexpr char PISTON_PORT = 'G';
+constexpr char FLAP_FORWARD_PORT = 'G';
+constexpr char FLAP_BACKWARD_PORT = 'H';
 constexpr int IMU_PORT = 17;
 
 // Utility variables
@@ -40,10 +42,11 @@ extern pros::Motor fourBarMotorRight;
 extern pros::Motor fourBarMotorLeft;
 extern pros::IMU imu;
 
-extern pros::ADIDigitalOut piston;
+extern pros::ADIDigitalOut flap_forward;
+extern pros::ADIDigitalOut flap_backward;
 
 // Robot variable declarations
-extern double orientation, previousOrientation, position, previousPosition, fourBar, previousFourBar; 
+extern double orientation, previousOrientation, position, previousPosition, fourBarPos, previousFourBarPos; 
 extern double targetMove, targetAngle, targetFourBar;
 extern int autoDriveState;
 extern bool opControl;

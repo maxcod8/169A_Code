@@ -1,24 +1,16 @@
 #include "PID.hpp"
 
-PID::PID(double kP, double kI, double kD, double integralBound) {
+PID::PID(double kP, double kI, double kD) {
     this->kP = kP;
     this->kI = kI;
     this->kD = kD;
-    this->integral_bound = integral_bound;
 }
 
 double PID::calculate(double target, double current) {
     // Update error, derivative, integral
     error = target - current;
     derivative = error - prevError;
-    integral += error;
-       
-    // Apply anti-integral windup
-    if (abs(error) < integral_bound){
-        integral += error;
-    } else {
-        integral = 0;
-    }
+    //integral += error;
     
     prevError = error;
     
