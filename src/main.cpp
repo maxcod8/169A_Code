@@ -9,6 +9,13 @@
  */
 void initialize() {
 	pros::lcd::initialize();
+	
+	leftWheelsBack.tare_position();
+    leftWheelsFront.tare_position();
+    rightWheelsBack.tare_position();
+    rightWheelsFront.tare_position();
+    fourBarMotorLeft.tare_position();
+    fourBarMotorRight.tare_position();
 
 	fourBarMotorLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	fourBarMotorRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);

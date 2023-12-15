@@ -2,8 +2,6 @@
 using namespace pros;
 
 void move(void* args){
-    PID pid = PID(1, 0, 3);
-
     while (true) {
         // Get average position for all drive-train wheels
         double motorRightPos = (rightWheelsFront.get_position() + rightWheelsBack.get_position()) / 2.0;
@@ -13,7 +11,7 @@ void move(void* args){
         pros::lcd::print(1, "Pos: %f", position);
         
         // Calculate motor output with PID
-        double output = pid.calculate(targetMove, position);
+        double output = movePID.calculate(targetMove, position);
 
         pros::lcd::print(2, "Move output: %f", output);
         pros::lcd::print(5, "Move target: %f", targetMove);
@@ -32,7 +30,6 @@ void move(void* args){
 }
 
 void turn(void* args){
-    PID pid = PID(2, 0.0, 1.5);
     int imuCalibrationThreshold = 100;
     int timerTime = 0;
 
@@ -50,7 +47,7 @@ void turn(void* args){
         pros::lcd::print(3, "Orientation: %f", orientation);
 
         // Calcuate turn PID
-        double output = -pid.calculate(targetAngle, orientation);
+        double output = -turnPID.calculate(targetAngle, orientation);
 
         pros::lcd::print(4, "Turn output: %f", output);
         pros::lcd::print(6, "Turn target: %f", targetAngle);
@@ -63,28 +60,6 @@ void turn(void* args){
         }
         
         previousOrientation = orientation;
-        delay(TASK_DELAY);
-    }
-}
-
-void fourbar(void* args) {
-    PID pid = PID(1.5, 0.0, 0.008);
-
-    while (true) {
-        fourBarPos = (fourBarMotorLeft.get_position() - fourBarMotorRight.get_position()) / 2.0;
-
-        double output = pid.calculate(targetFourBar, fourBarPos);
-
-        pros::lcd::print(5, "fourbar curr: %f", fourBarPos);
-        pros::lcd::print(6, "fourbar target: %f", targetFourBar);
-        pros::lcd::print(7, "fourbar out: %f", output);
-
-    
-        fourBarMotorLeft.move(output);
-        fourBarMotorRight.move(-output);
-    
-
-        previousFourBarPos = fourBarPos;
         delay(TASK_DELAY);
     }
 }

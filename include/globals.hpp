@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "PID.hpp"
 
 // Controller Bindings
 constexpr auto FLAP_FORWARD_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_Y;
@@ -44,6 +45,9 @@ extern pros::IMU imu;
 
 extern pros::ADIDigitalOut flap_forward;
 extern pros::ADIDigitalOut flap_backward;
+
+extern PID movePID;
+extern PID turnPID;
 
 // Robot variable declarations
 extern double orientation, previousOrientation, position, previousPosition, fourBarPos, previousFourBarPos; 

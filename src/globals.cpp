@@ -1,4 +1,5 @@
 #include "globals.hpp"
+#include "autonomous.hpp"
 
 // VEX definitons
 pros::Controller controller(CONTROLLER_MASTER);
@@ -13,6 +14,9 @@ pros::Motor fourBarMotorLeft(FOUR_BAR_MOTOR_PORT2);
 pros::ADIDigitalOut flap_forward(FLAP_FORWARD_PORT, false);
 pros::ADIDigitalOut flap_backward(FLAP_BACKWARD_PORT, false);
 pros::IMU imu(IMU_PORT);
+
+PID movePID(kP, 0, kD, 0);
+PID turnPID(2, 0.0, 1.5, 0);
 
 // Robot variable definitions
 double orientation, previousOrientation, position, previousPosition = 0.0;
