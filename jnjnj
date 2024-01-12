@@ -1,0 +1,28 @@
+/*
+void opcontrol(){
+
+
+    bool flapForwardState = false;
+    bool flapBackwardState = false;
+    bool cataState = false;
+    int intakeState = 0;
+
+    while(true){
+        opControl = true;
+        double left = -controller.get_analog(ANALOG_LEFT_Y);
+		double right = controller.get_analog(ANALOG_RIGHT_Y);
+
+        if (opControl){
+            leftWheelsFront.move(left);
+            leftWheelsBack.move(left);  
+            rightWheelsFront.move(right);  
+            rightWheelsBack.move(right);
+
+            //handle_flaps(flapForwardState, flapBackwardState);
+            handle_intake(intakeState);
+            //handle_four_bar();
+            handle_catapult(cataState);
+        }
+        pros::delay(TASK_DELAY);
+    }
+}

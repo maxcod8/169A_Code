@@ -20,8 +20,8 @@ void initialize() {
 	fourBarMotorLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	fourBarMotorRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	
-	pros::Task taskMove(move);
-	pros::Task taskTurn(turn);
+	//pros::Task taskMove(move);
+	//pros::Task taskTurn(turn);
 }
 
 
