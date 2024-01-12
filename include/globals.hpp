@@ -12,17 +12,17 @@ constexpr auto FOUR_BAR_MANUAL_DOWN = pros::E_CONTROLLER_DIGITAL_L2;
 constexpr auto CATAPULT_TOGGLE_BUTTON = pros::E_CONTROLLER_DIGITAL_RIGHT;
 
 // VEX Ports
-constexpr int LEFT_WHEELS_PORT = 14;
-constexpr int LEFT_WHEELS_PORT2 = 16;
-constexpr int RIGHT_WHEELS_PORT = 15;
-constexpr int RIGHT_WHEELS_PORT2 = 19;
-constexpr int CATA_MOTOR_PORT = 6;
+constexpr int LEFT_WHEELS_PORT = 17;
+constexpr int LEFT_WHEELS_PORT2 = 7;
+constexpr int RIGHT_WHEELS_PORT = ;1
+constexpr int RIGHT_WHEELS_PORT2 = 4;
+constexpr int CATA_MOTOR_PORT = 10;
 constexpr int INTAKE_MOTOR_PORT = 2;
 constexpr int FOUR_BAR_MOTOR_PORT = 8;
 constexpr int FOUR_BAR_MOTOR_PORT2 = 13;
 constexpr char FLAP_FORWARD_PORT = 'G';
 constexpr char FLAP_BACKWARD_PORT = 'H';
-constexpr int IMU_PORT = 17;
+constexpr int IMU_PORT = 11;
 
 // Utility variables
 constexpr int TASK_DELAY = 20;
