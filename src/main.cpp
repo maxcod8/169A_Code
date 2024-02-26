@@ -12,6 +12,7 @@ void initialize() {
 	
 	leftWheelsBack.tare_position();
     leftWheelsFront.tare_position();
+	leftWheelsMiddle.tare_position();
     rightWheelsBack.tare_position();
     rightWheelsFront.tare_position();
     fourBarMotorLeft.tare_position();
@@ -19,6 +20,8 @@ void initialize() {
 
 	fourBarMotorLeft.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	fourBarMotorRight.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	
+	//cataMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	
 	//pros::Task taskMove(move);
 	//pros::Task taskTurn(turn);

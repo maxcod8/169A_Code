@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "169x_v.2",
+    "project_name": "169x skills (auto:cata)",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,7 +309,8 @@
       }
     },
     "upload_options": {
-      "icon": "pizza"
+      "icon": "robot",
+      "slot": 3
     }
   }
 }

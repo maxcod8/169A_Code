@@ -1,7 +1,7 @@
-/*#include "tasks.hpp"
+#include "tasks.hpp"
 using namespace pros;
 
-void move(void* args){
+/*void move(void* args){
     while (true) {
         // Get average position for all drive-train wheels
         double motorRightPos = (rightWheelsFront.get_position() + rightWheelsBack.get_position()) / 2.0;

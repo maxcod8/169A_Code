@@ -2,8 +2,8 @@
 #include "main.h"
 #include "globals.hpp"
 
-//constexpr double kP = 1.0;
-//constexpr double kD = 3.0;
+constexpr double kP = 1.0;
+constexpr double kD = 3.0;
 
 //double angleDifference(double angle1, double angle2);
 //void setoveTargetDistance(double distance);
@@ -18,3 +18,4 @@
 //void close_elim();
 //oid far_elim();
 //oid prog();
+
